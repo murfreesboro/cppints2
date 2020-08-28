@@ -1,0 +1,6 @@
+
+The types folder contains the fundamental concepts for building the integral formula. 
+For example, class describe basis function (basis class), shell, shell quartet, 
+integral operator etc.
+
+These classes are the fundamental layer for the whole project.
