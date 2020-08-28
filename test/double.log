@@ -1,0 +1,48 @@
+********job testing list********
+integral testing for energy calculation
+maximum angular momentum for integrals is 4
+maximum aux angular momentum for integrals is 5
+maximum angular momentum for MOM integrals is 5
+two body overlap
+three body overlap
+two body kinetic
+three body kinetic
+two body nuclear attraction
+normal ERI
+two body ERI
+three body ERI
+momentum integrals
+expr12 integrals
+********************************
+**************************************************************
+ two body overlap integrals test:
+**************************************************************
+**************************************************************
+ three body overlap integrals test:
+**************************************************************
+**************************************************************
+ three body kinetic integrals test:
+**************************************************************
+**************************************************************
+ moment overlap integrals test:
+**************************************************************
+**************************************************************
+ two body kinetic integrals test:
+**************************************************************
+**************************************************************
+ two body NAI test:
+**************************************************************
+**************************************************************
+four body electron repulsion integrals test:
+**************************************************************
+**************************************************************
+four body electron repulsion integrals test:
+**************************************************************
+**************************************************************
+four body electron repulsion integrals test:
+**************************************************************
+**************************************************************
+* four body exp(-omega*r12^2) integral test:
+* the last dimension is always the dummy shell 
+**************************************************************
+all of jobs finished
