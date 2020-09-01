@@ -447,6 +447,7 @@ bool ShellQuartet::operator<(const ShellQuartet& sq) const {
 	// 4 consider the smallest angular momentum maxL4, if 
 	// maxL4(sq1) > maxL4(sq2) then sq1 < sq2, if maxL4(sq1) < maxL4(sq2) then 
 	// sq1 > sq2; else we continue;
+	//
 	// 5 now we have the shell quartet that their angular momentum are same,
 	// but with different arrangment orders. For example, (44|22) and (42|42).
 	// now we need to tell them from each other.

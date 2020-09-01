@@ -1,7 +1,7 @@
 #
 #   simple Makefile to build the module of types for debugging purpose
 #
-NAME       = types
+NAME       = test
 CC		     = g++
 CFLAGS     = -Wall -O3
 INCLUDE    = -I../include 
@@ -17,6 +17,6 @@ $(OBJC): %.o:%.cpp
 
 .PHONY: clean
 clean:
-	@cd ../src; rm *.o
+	@cd ../src; rm -rf *.o
 	@rm -rf $(NAME) test.o
 

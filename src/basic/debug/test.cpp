@@ -26,15 +26,16 @@ int main() {
 		cout << "yes!!" << endl;
 	}
 
-	ShellQuartet sq1(2,2,2,2,ERI,0);
+	ShellQuartet sq1(1,0,2,2,ERI,0);
 	cout << sq1.getName() << endl;
-	ShellQuartet sq2(2,1,2,1,ERI,0);
+	ShellQuartet sq2(1,1,2,1,ERI,0);
 	cout << sq2.getName() << endl;
 	if (sq1<sq2) {
 		cout << "less than!!!!" << endl;
 	}else{
 		cout << "larger than!!!" << endl;
 	}
+	cout << "correct result should be less than" << endl;
 
 	Integral I2(sq1,6);
 	cout << I2.getName() << endl;
