@@ -49,10 +49,9 @@
 namespace basis {
 	class Basis;
 }
+using namespace basis;
 
 namespace shell {
-
-	using namespace basis;
 
 	class Shell {
 
@@ -67,9 +66,15 @@ namespace shell {
 				crash(L< NULL_POS,"Imporper angular momentum passed in constructing shell");
 				crash(L> 20,"The angular momentum you give is tooooo high! What's wrong?");
 			};
-			Shell():L(NULL_POS){ };
+
+            // default constructor
+			Shell():L(NULL_POS) { };
+
+            // default copy constructor
 			Shell(const Shell& s0):L(s0.L) { };
-			~Shell() { };
+
+            // default destructor
+			~Shell() = default;
 
 			// raising/lowering the angular momentum
 			void changeL(int incL) {

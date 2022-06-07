@@ -67,9 +67,9 @@ using namespace shell;
 namespace integral {
 	class Integral;
 }
-namespace shellquartet {
+using namespace integral;
 
-	using namespace integral;
+namespace shellquartet {
 
 	class ShellQuartet {
 

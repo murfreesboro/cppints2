@@ -160,6 +160,14 @@
 #define BOTTOM_SQ              4006
 
 //
+// for exchange job, here define the k13 k14 etc.
+//
+#define K13                     5000
+#define K23                     5001
+#define K14                     5002
+#define K24                     5003
+
+//
 // this is an constant used to specify the 
 // maximum number of exponetial factors
 // adding to the integrals/shell quartet 

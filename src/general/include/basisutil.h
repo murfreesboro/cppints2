@@ -1827,8 +1827,15 @@ namespace basisutil {
 
 		public:
 
-			BasisUtil() { };
-			~BasisUtil() { };
+            ///
+            /// constructor
+            ///
+			BasisUtil() = default;
+
+            ///
+            /// destructor
+            ///
+			~BasisUtil() = default;
 
 			// get the l,m and n value for the given local index for basis set
 			// in the shell L

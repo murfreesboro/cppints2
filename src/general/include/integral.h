@@ -53,10 +53,9 @@ using namespace basis;
 namespace shellquartet {
 	class ShellQuartet;
 }
+using namespace shellquartet;
 
 namespace integral {
-
-	using namespace shellquartet;
 
 	class Integral {
 

@@ -54,6 +54,14 @@ namespace kdigestion {
 			~KDigestion() = default;
 
 			///
+			/// for the unrolling, get either density matrix value name;
+			/// or result name
+			///
+			string get2DBlockName(bool isDenMtrxBlock,
+					const Basis& b1, const Basis& b2,
+					const int& pos) const;
+
+			///
 			/// unrolling the K digestion
 			///
 			void unrollingKDigestion() const;
