@@ -27,8 +27,6 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -std=c++11")
 #            set the library                   #
 # here inside we only use boost                #
 ################################################
-set(THIS_PROJECT_LIBS "")
-
 #
 # boost library
 #
@@ -38,7 +36,7 @@ set(Boost_USE_STATIC_RUNTIME  OFF)
 find_package(Boost 1.60.0 COMPONENTS filesystem system)
 if(Boost_FOUND)
 	include_directories(${Boost_INCLUDE_DIRS})
-	set(THIS_PROJECT_LIBS ${Boost_LIBRARIES} ${THIS_PROJECT_LIBS})
+	set(THIS_PROJECT_LIBS ${Boost_LIBRARIES})
 	
 	# output message
 	message("boost libs: " ${Boost_LIBRARIES})
@@ -53,7 +51,7 @@ endif()
 #           set the include dir                #
 ################################################
 
-include_directories ("${PROJECT_SOURCE_DIR}/src/general/include")
+include_directories("${PROJECT_SOURCE_DIR}/src/general/include")
 
 ################################################
 #           add in each subdir                 #
@@ -61,6 +59,7 @@ include_directories ("${PROJECT_SOURCE_DIR}/src/general/include")
 
 add_subdirectory("${PROJECT_SOURCE_DIR}/src/general")
 set (MY_WHOLE_LIBRARIES "general")
+message("libraries: " ${MY_WHOLE_LIBRARIES})
 
 ################################################
 #     now we need to add the target module     #
