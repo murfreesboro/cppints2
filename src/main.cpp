@@ -33,7 +33,7 @@ using namespace kdigestion;
 int main(int argc, char* argv[]) {
 
     Shell b1(1);
-    Shell b2(0);
+    Shell b2(1);
     Shell k1(1);
     Shell k2(0);
     ShellQuartet shellQuartet(b1,b2,k1,k2,ERI);

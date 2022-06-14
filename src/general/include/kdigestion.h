@@ -53,6 +53,19 @@ namespace kdigestion {
 			///
 			~KDigestion() = default;
 
+            ///
+            /// with the input index for the row shell and column shell,
+            /// as well as the position; let's compute the index for the
+            /// result matrix
+            ///
+            int get2DMatrixIndex(const int& i, const int& j, const int& pos) const;
+
+            ///
+            /// initialize the string vector which holds the result
+            /// we will put the result block name as initialization
+            ///
+            void initResultVectionString(const int& pos, vector<string>& result) const;
+
 			///
 			/// for the unrolling, get either density matrix value name;
 			/// or result name

@@ -39,8 +39,8 @@ string KDigestion::get2DBlockName(bool isDenMtrxBlock, const Basis &b1,
                                   const Basis &b2, const int& pos) const {
 
     // prefix
-    string name = "result";
-    if (isDenMtrxBlock) name = "dm";
+    string name = "result_";
+    if (isDenMtrxBlock) name = "dm_";
 
     // add in basis set name
     name += b1.getName() + "_" + b2.getName();
@@ -55,7 +55,94 @@ string KDigestion::get2DBlockName(bool isDenMtrxBlock, const Basis &b1,
     return name;
 }
 
+int KDigestion::get2DMatrixIndex(const int& i, const int& j, const int& pos) const {
+
+    // get the shell
+    const Shell& bra1 = sq.getShell(BRA1);
+    const Shell& bra2 = sq.getShell(BRA2);
+    int nBra1 = bra1.getBasisSetNumber();
+    int nBra2 = bra2.getBasisSetNumber();
+
+    // get the row dimension
+    int nRowBas = nBra1;
+    if (pos == K23 || pos == K24) nRowBas = nBra2;
+
+    // result
+    int index = i+j*nRowBas;
+    return index;
+}
+
+void KDigestion::initResultVectionString(const int& pos, vector<string>& result) const {
+
+    // get the shell data
+    BasisUtil bu;
+    const Shell& bra1 = sq.getShell(BRA1);
+    const Shell& bra2 = sq.getShell(BRA2);
+    const Shell& ket1 = sq.getShell(KET1);
+    const Shell& ket2 = sq.getShell(KET2);
+    int nBra1 = bra1.getBasisSetNumber();
+    int nBra2 = bra2.getBasisSetNumber();
+    int nKet1 = ket1.getBasisSetNumber();
+    int nKet2 = ket2.getBasisSetNumber();
+
+    // set the row and column
+    int nRow = nBra1;
+    int nCol = nKet1;
+    int rowL = bra1.getL();
+    int colL = ket1.getL();
+    if (pos == K23) {
+        nRow = nBra2;
+        rowL = bra2.getL();
+    } else if (pos == K14) {
+        nCol = nKet2;
+        colL = ket2.getL();
+    } else if (pos == K24) {
+        nRow = nBra2;
+        nCol = nKet2;
+        rowL = bra2.getL();
+        colL = ket2.getL();
+    }
+
+    // set the length
+    result.assign(nRow*nCol," ");
+
+    // now generate the initialization
+    for (int j=0; j<nCol; j++) {
+
+        // get the basis name
+        int l2,m2,n2;
+        bu.getLMNVal(colL,j,l2,m2,n2);
+        Basis k1(l2,m2,n2);
+
+        // loop over the row basis set
+        for (int i=0; i<nRow; i++) {
+
+            // get the basis name
+            int l1,m1,n1;
+            bu.getLMNVal(rowL,i,l1,m1,n1);
+            Basis b1(l1,m1,n1);
+
+            // get the result block name
+            string name = get2DBlockName(false, b1, k1, pos) + " = ";
+
+            // get the index
+            int index = get2DMatrixIndex(i,j,pos);
+            result[index] = name;
+        }
+    }
+}
+
 void KDigestion::unrollingKDigestion() const {
+
+    // set up vectors to store the results
+    vector<string> k13;
+    vector<string> k23;
+    vector<string> k14;
+    vector<string> k24;
+    initResultVectionString(K13, k13);
+    initResultVectionString(K23, k23);
+    initResultVectionString(K14, k14);
+    initResultVectionString(K24, k24);
 
     // get the shells
     BasisUtil bu;
@@ -97,38 +184,57 @@ void KDigestion::unrollingKDigestion() const {
                     bu.getLMNVal(bra1.getL(),i,l1,m1,n1);
                     Basis b1(l1,m1,n1);
 
+                    // compute the index for the result
+                    int k13_index = get2DMatrixIndex(i,k,K13);
+                    int k14_index = get2DMatrixIndex(i,l,K14);
+                    int k23_index = get2DMatrixIndex(j,k,K13);
+                    int k24_index = get2DMatrixIndex(j,l,K14);
+
                     // now we can get the integral
                     Integral I(b1,b2,k1,k2,sq.getOper());
                     string iname = I.getName();
 
                     // k13 - p24
-                    string k13 = get2DBlockName(false, b1, k1, K13);
                     string p24 = get2DBlockName(true, b2, k2, K24);
 
                     // k23 - p14
-                    string k23 = get2DBlockName(false, b2, k1, K23);
                     string p14 = get2DBlockName(true, b1, k2, K14);
 
                     // k14 - p23
-                    string k14 = get2DBlockName(false, b1, k2, K14);
                     string p23 = get2DBlockName(true, b2, k1, K23);
 
                     // k24 - p13
-                    string k24 = get2DBlockName(false, b2, k2, K24);
                     string p13 = get2DBlockName(true, b1, k1, K13);
 
                     // now let's print
-                    string line1 = "Double " + k13 + " += " + iname + "*" + p24 + ";";
-                    printf("%-s\n", line1.c_str());
-                    string line2 = "Double " + k23 + " += " + iname + "*" + p14 + ";";
-                    printf("%-s\n", line2.c_str());
-                    string line3 = "Double " + k14 + " += " + iname + "*" + p23 + ";";
-                    printf("%-s\n", line3.c_str());
-                    string line4 = "Double " + k24 + " += " + iname + "*" + p13 + ";";
-                    printf("%-s\n", line4.c_str());
+                    string line1 = iname + "*" + p24 + " + ";
+                    k13[k13_index] += line1;
+                    string line2 = iname + "*" + p14 + " + ";
+                    k23[k23_index] += line2;
+                    string line3 = iname + "*" + p23 + " + ";
+                    k14[k14_index] += line3;
+                    string line4 = iname + "*" + p13 + " + ";
+                    k24[k24_index] += line4;
                 }
             }
         }
+    }
+
+    // finally let's print out the result
+    for(int i=0; i<k13.size(); i++) {
+        printf("%-s\n", k13[i].c_str());
+    }
+    printf("\n\n");
+    for(int i=0; i<k23.size(); i++) {
+        printf("%-s\n", k23[i].c_str());
+    }
+    printf("\n\n");
+    for(int i=0; i<k14.size(); i++) {
+        printf("%-s\n", k14[i].c_str());
+    }
+    printf("\n\n");
+    for(int i=0; i<k24.size(); i++) {
+        printf("%-s\n", k24[i].c_str());
     }
 }
 
