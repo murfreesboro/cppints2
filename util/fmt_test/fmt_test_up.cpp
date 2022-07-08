@@ -54,7 +54,7 @@ double doubleFac(const int& m, const int& n);
 
 double fm(const double& a, const int& m) {
 	double x = 1.0E0;
-	if (fabs(a)<1.0E-14) return (pow(x,2*m+1)/(2*m+1));
+	if (fabs(a)<1.0E-16) return (pow(x,2*m+1)/(2*m+1));
 	double f12 = 1.0E0/2.0E0;
 	double p   = 1.0E0/(2.0E0*pow(a,m+f12));
 	double upperLimit = a*pow(x,2.0E0);
@@ -80,11 +80,11 @@ int main()
 	// if the difference is less than the error, we 
 	// think the error could be omitted
 	///////////////////////////////////////////////////
-	double steplength  = 0.000001;
-	double globalError = 1.0E-14;
+	double steplength  = 0.0000001;
+	double globalError = 1.0E-16;
 	int M_limmit       = 8;
-	double T_max_limit = 40.0E0;
-	double T_min_limit = 1.8E0;
+	double T_max_limit = 10.0E0;
+	double T_min_limit = 1.6E0;
 	int numSteps       = (T_max_limit-T_min_limit)/steplength;
 	double largest     = 0.0E0;
 
@@ -111,7 +111,7 @@ int main()
 			double d  = fabs(s-e);
 			double d0 = s-e;
 			if (d>globalError) {
-				printf("m is  %d, T   is %-16.14f, difference is %-16.14f\n", i, T, d0);
+				printf("m is  %d, T   is %-18.16f, difference is %-18.16f\n", i, T, d0);
 				if (d>largest) largest = d;
 			}
 			e0 = e;
@@ -123,7 +123,6 @@ int main()
 	// this section testing the up recursice relation for M_limit = 9  //
 	/////////////////////////////////////////////////////////////////////
 	cout << endl << endl;
-	globalError = 1.0E-13;
 	M_limmit    = 9;
 	cout << "===========================================================" << endl;
 	cout << "testing the up recursive relation for m = 1 to " << M_limmit << endl;
@@ -145,7 +144,7 @@ int main()
 			double d  = fabs(s-e);
 			double d0 = s-e;
 			if (d>globalError) {
-				printf("m is  %d, T   is %-16.14f, difference is %-16.14f\n", i, T, d0);
+				printf("m is  %d, T   is %-18.16f, difference is %-18.16f\n", i, T, d0);
 				if (d>largest) largest = d;
 			}
 			e0 = e;
@@ -157,7 +156,6 @@ int main()
 	// this section testing the up recursice relation for M_limit = 10 //
 	/////////////////////////////////////////////////////////////////////
 	cout << endl << endl;
-	globalError = 1.0E-12;
 	M_limmit    = 10;
 	cout << "===========================================================" << endl;
 	cout << "testing the up recursive relation for m = 1 to " << M_limmit << endl;
@@ -179,7 +177,7 @@ int main()
 			double d  = fabs(s-e);
 			double d0 = s-e;
 			if (d>globalError) {
-				printf("m is  %d, T   is %-16.14f, difference is %-16.14f\n", i, T, d0);
+				printf("m is  %d, T   is %-18.16f, difference is %-18.16f\n", i, T, d0);
 				if (d>largest) largest = d;
 			}
 			e0 = e;
