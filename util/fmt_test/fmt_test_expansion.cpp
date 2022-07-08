@@ -54,7 +54,7 @@ double doubleFac(const int& m, const int& n);
 
 double fm(const double& a, const int& m) {
 	double x = 1.0E0;
-	if (fabs(a)<1.0E-14) return (pow(x,2*m+1)/(2*m+1));
+	if (fabs(a)<1.0E-16) return (pow(x,2*m+1)/(2*m+1));
 	double f12 = 1.0E0/2.0E0;
 	double p   = 1.0E0/(2.0E0*pow(a,m+f12));
 	double upperLimit = a*pow(x,2.0E0);
@@ -81,13 +81,11 @@ int main()
 	// think the error could be omitted
 	///////////////////////////////////////////////////
 	int N = 10000000;
-	double steplength  = 0.000001;
-	double globalError = 1.0E-14;
+	double steplength  = 0.0000001;
+	double globalError = 1.0E-16;
 	int M_limmit       = 40;
-	double T_min_limit = 1.8E0;
+	double T_min_limit = 1.6E0;
    int nTerms = 17;
-	float steplength_f  = 0.00001;
-	float globalError_f = 1.0E-6;
 
 	///////////////////////////////////////////////////
 	// testing the power series
@@ -119,37 +117,8 @@ int main()
 			double result = fm(T,m);
 			double d = fabs(result-x);
 			if (d>globalError) {
-				printf("fmt is %-16.14f\n", result);
-				printf("for m=%d T=%f difference is %-16.14f\n", m, T, d);
-			}
-		}
-	}
-
-	cout << endl << endl;
-	cout << "===========================================================" << endl;
-	cout << "testing the power series expansion with " <<nTerms+1 << " terms" << endl;
-	cout << "this is for float type variable" << endl;
-	cout << "error range is " << globalError_f << endl;
-	cout << "step length for T is " << steplength_f << endl;
-	cout << "T is ranging from 0 to " << T_min_limit << endl;
-	cout << "===========================================================" << endl;
-	numSteps = T_min_limit/steplength_f;
-	for (int m = 1; m<=M_limmit; m++) {
-		for (int j = 0; j<=numSteps; j++) {
-			float T  = steplength_f*j;
-			float et = exp(-T);
-			float x  = 1.0;
-			float t2 = 2.0*T;
-			for(int i=nTerms; i>=1; i--) {
-				x = 1.0+t2/(2.0*(m+i)+1.0)*x;
-			}
-			x  = (1.0/(2*m+1))*x;
-			x *= et;
-			double result = fm(T,m);
-			float d = fabs(result-x);
-			if (d>globalError_f) {
-				printf("fmt is %-16.14f\n", result);
-				printf("for m=%d T=%f difference is %-16.14f\n", m, T, d);
+				printf("fmt is %-18.16f\n", result);
+				printf("for m=%d T=%f difference is %-18.16f\n", m, T, d);
 			}
 		}
 	}
