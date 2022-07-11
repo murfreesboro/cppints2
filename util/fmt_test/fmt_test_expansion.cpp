@@ -69,11 +69,11 @@ int main()
 	// if the difference is less than the error, we 
 	// think the error could be omitted
 	///////////////////////////////////////////////////
-	long double steplength  = 0.0000001;
+	long double steplength  = 0.00000001;
 	long double globalError = 1.0E-16;
 	int M_limmit = 4;
 	int M_lower_limit = 1;
-	long double T_min_limit = 1.4E0;
+	long double T_min_limit = 1.39E0;
    int nTerms = 17;
 
 	// testing the accurary of long double
