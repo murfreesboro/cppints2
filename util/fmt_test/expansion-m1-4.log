@@ -1,0 +1,11 @@
+sizeof long double: 16
+
+
+===========================================================
+testing the power series expansion with 18 terms
+this is for long double type variable
+error range is 1e-16
+step length for T is 1e-08
+T is ranging from 0 to 1.39
+m is from 1 to 4
+===========================================================

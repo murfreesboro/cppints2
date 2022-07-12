@@ -1,0 +1,9 @@
+
+
+===========================================================
+testing the up recursive relation for m = 1 to 4
+error range is 1e-16
+step length for T is 1e-08
+T is ranging from 1.39 to 50
+===========================================================
+largest difference is 0.0000000000000000

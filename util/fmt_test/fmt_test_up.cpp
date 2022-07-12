@@ -69,18 +69,25 @@ int main()
 	// global error is the error range
 	// if the difference is less than the error, we 
 	// think the error could be omitted
+	//
+	// for m from 1 to 4, the T limit is 1.39
+	// for m from 1 to 8, the T limit is 2.8
 	///////////////////////////////////////////////////
 	long double steplength  = 0.00000001;
 	long double globalError = 1.0E-16;
-	int M_limmit            = 4;
 	long double T_max_limit = 50.0E0;
-	long double T_min_limit = 1.39E0;
-	size_t numSteps         = (size_t)((T_max_limit-T_min_limit)/steplength);
 	long double largest     = 0.0E0;
 
+	// custom setting
+	//int M_limmit            = 4;
+	//long double T_min_limit = 1.39E0;
+	int M_limmit            = 8;
+	long double T_min_limit = 2.8E0;
+	
 	/////////////////////////////////////////////////////////////////////
 	// this section testing the up recursice relation for M_limit 
 	/////////////////////////////////////////////////////////////////////
+	size_t numSteps = (size_t)((T_max_limit-T_min_limit)/steplength);
 	cout << endl << endl;
 	cout << "===========================================================" << endl;
 	cout << "testing the up recursive relation for m = 1 to " << M_limmit << endl;
